@@ -17,7 +17,9 @@ LCD_BRIGHTNESS_TRESHOLD=5
 
 # /CONFIGURATION
 
-echo "Going to start brightness control..."
+echo "Going to start brightness control in 5s..."
+
+sleep 5s
 
 # INIT
 function clean_exit()
@@ -73,5 +75,6 @@ do
         echo "No need to adjust brightness - still within threshold"
     fi
     LCD_BRIGHTNESS_PREV=$LCD_BRIGHTNESS
+    sleep 0.5s
 done
 
