@@ -18,7 +18,7 @@ LCD_BRIGHTNESS_TRESHOLD=5
 # /CONFIGURATION
 
 echo "Going to start brightness control in 5s..."
-
+# TODO Apparently sometimes we initialize too early and brightness control won't work - to be investigated later
 sleep 5s
 
 # INIT

@@ -9,15 +9,17 @@ ExecStart=/home/pi/home-air-quality/brightness.sh
 WorkingDirectory=/home/pi/home-air-quality
 StandardOutput=inherit
 StandardError=inherit
+User=pi
+
+StartLimitInterval=5min
+StartLimitBurst=5
+
 # disabled for now since notifications for watchdog is not supported yet
 #Restart=always
 #RestartSec=10s
-User=pi
 #TimeoutSec=infinity
 #TimeoutStartSec=60s
 #TimeoutStopSec=20s
-StartLimitInterval=5min
-StartLimitBurst=5
 # Turn it on only when you are absolutely and positively sure that this service works tip-top, otherwise you may experience reboot loop
 #StartLimitAction=reboot
 # Watchdog unleashed. The value must not be lower than 60s + some time to eventually get data
