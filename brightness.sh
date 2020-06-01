@@ -18,8 +18,8 @@ LCD_BRIGHTNESS_TRESHOLD=5
 # /CONFIGURATION
 
 echo "Going to start brightness control in 5s..."
-# TODO Apparently sometimes we initialize too early and brightness control won't work - to be investigated later
-sleep 5s
+# TODO Apparently sometimes we initialize too early and brightness control won't work - to be investigated later (something is overriding gpio pwm-ms)
+sleep 10s
 
 # INIT
 function clean_exit()
@@ -35,7 +35,6 @@ LCD_BRIGHTNESS_PREV=$(( $LCD_BRIGHTNESS_DEFAULT_VALUE - 2 * $LCD_BRIGHTNESS_TRES
 gpio -g mode $LCD_BRIGHTNESS_GPIO pwm
 gpio pwm-ms
 gpio -g pwm $LCD_BRIGHTNESS_GPIO $LCD_BRIGHTNESS_DEFAULT_VALUE
-
 
 i2cset -r -y 1 $LUMI_SENSOR_ADDRESS 0x80 3 b
 i2cset -r -y 1 $LUMI_SENSOR_ADDRESS 0x81 2 b
@@ -64,13 +63,17 @@ do
         echo "Setting LCD brightness to reach $LCD_BRIGHTNESS..."
         for i in $(eval echo "{$LCD_BRIGHTNESS_PREV..$LCD_BRIGHTNESS..$LCD_BRIGHTNESS_STEP}")
         do
-            echo -e "\t$i -> $LCD_BRIGHTNESS"
+            echo -e "   $i -> $LCD_BRIGHTNESS"
 
             gpio -g pwm $LCD_BRIGHTNESS_GPIO $i
             #sleep 0.05s
         done
         # set final value as the loop above could not reach the desired value due to step value
         gpio -g pwm $LCD_BRIGHTNESS_GPIO $LCD_BRIGHTNESS
+
+        # redo - sometimes something is changing the mode?
+        gpio -g mode $LCD_BRIGHTNESS_GPIO pwm
+        gpio pwm-ms
     else
         echo "No need to adjust brightness - still within threshold"
     fi
