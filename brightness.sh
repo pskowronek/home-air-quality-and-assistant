@@ -18,8 +18,10 @@ LCD_BRIGHTNESS_TRESHOLD=5
 # /CONFIGURATION
 
 echo "Going to start brightness control in 5s..."
-# TODO Apparently sometimes we initialize too early and brightness control won't work - to be investigated later (something is overriding gpio pwm-ms)
-sleep 10s
+# TODO Apparently sometimes we initialize too early and brightness control won't work - to be investigated later (something is overriding gpio pwm-ms?)
+gpio -g mode $LCD_BRIGHTNESS_GPIO output
+gpio -g write $LCD_BRIGHTNESS_GPIO 1
+sleep 60s
 
 # INIT
 function clean_exit()
@@ -68,16 +70,13 @@ do
             gpio -g pwm $LCD_BRIGHTNESS_GPIO $i
             #sleep 0.05s
         done
+        # redo - sometimes something is changing the mode or what?
+        gpio pwm-ms
         # set final value as the loop above could not reach the desired value due to step value
         gpio -g pwm $LCD_BRIGHTNESS_GPIO $LCD_BRIGHTNESS
-
-        # redo - sometimes something is changing the mode?
-        gpio -g mode $LCD_BRIGHTNESS_GPIO pwm
-        gpio pwm-ms
     else
         echo "No need to adjust brightness - still within threshold"
     fi
     LCD_BRIGHTNESS_PREV=$LCD_BRIGHTNESS
-    sleep 0.5s
 done
 
