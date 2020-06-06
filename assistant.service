@@ -1,0 +1,34 @@
+[Unit]
+Description=home-air-quality
+After=network.target
+# Hopefully it should be enforced: https://github.com/systemd/systemd/issues/5097
+Wants=time-sync.target
+
+[Service]
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+Environment=PYTHONUNBUFFERED=true
+ExecStart=python3 assistant.py
+WorkingDirectory=/home/pi/home-air-quality/assistant
+StandardOutput=inherit
+StandardError=inherit
+User=pi
+
+StartLimitInterval=5min
+StartLimitBurst=5
+
+# disabled for now since notifications for watchdog is not supported yet
+Restart=always
+RestartSec=10s
+TimeoutSec=infinity
+TimeoutStartSec=60s
+TimeoutStopSec=20s
+# Turn it on only when you are absolutely and positively sure that this service works tip-top, otherwise you may experience reboot loop
+#StartLimitAction=reboot
+# Watchdog unleashed. The value must not be lower than ~30s
+WatchdogSec=60s
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=graphical.target

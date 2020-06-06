@@ -1,0 +1,47 @@
+hmm_path: model/hmm
+dict_path: model/lmtool.dic
+lm_path: model/lmtool.lm
+keyphrase_path: keyphrase.list
+
+invocations:
+    bruce:
+      enter: scripts/enter.sh
+      ack: scripts/ack.sh
+      noop: scripts/noop.sh
+      exit: scripts/exit.sh
+      commands:
+          - name: weather
+            sentence:
+              - Whats the weather like
+              - What is the weather like
+              - What the weather like
+              - Whats the weather today
+              - What is the weather today
+              - What the weather today
+            must:
+              - weather
+            should:
+              - like
+              - what
+            must_not:
+              - forecast
+              - tomorrow
+            exec: scripts/weather_today.sh
+          - name: forecast
+            sentence:
+              - Whats the weather forecast
+              - What is the weather forecast
+              - What the weather forecast
+              - Whats the weather tomorrow
+              - What is the weather tomorrow
+              - What the weather tomorrow
+            must:
+              - weather
+            should:
+              - what
+              - forecast
+              - tomorrow
+            must_not:
+              - today
+              - like
+            exec: scripts/weather_tomorrow.sh
