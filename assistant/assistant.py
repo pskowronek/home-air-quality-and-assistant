@@ -99,9 +99,6 @@ while True:
     hyp_str = hyp.hypstr.lower() if hyp else None
     now_in_speech = decoder.get_in_speech()
 
-    #if hyp_str:
-    #    print ([(seg.word, seg.prob, seg.start_frame, seg.end_frame) for seg in decoder.seg()])
-
     if now_in_speech != in_speech_bf:
         in_speech_bf = now_in_speech
         if not in_speech_bf:

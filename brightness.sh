@@ -17,10 +17,12 @@ LCD_BRIGHTNESS_TRESHOLD=5
 
 # /CONFIGURATION
 
-echo "Going to start brightness control in 5s..."
+echo "Going to start brightness control in 60s..."
 # TODO Apparently sometimes we initialize too early and brightness control won't work - to be investigated later (something is overriding gpio pwm-ms?)
 gpio -g mode $LCD_BRIGHTNESS_GPIO output
 gpio -g write $LCD_BRIGHTNESS_GPIO 1
+# notify systemd watchdog
+systemd-notify --booted
 sleep 60s
 
 # INIT
@@ -45,6 +47,7 @@ i2cset -r -y 1 $LUMI_SENSOR_ADDRESS 0x81 2 b
 # Neverending story...
 while true
 do
+    systemd-notify WATCHDOG=1
     sleep $LOOP_ITER_SLEEP
     LUX=$(( $(i2cget -y 1 $LUMI_SENSOR_ADDRESS 0x8c w) )) # with hex to value conversion
     echo "Got data from lumi sensor - full spectrum (IR + Visible) is: $LUX lux"

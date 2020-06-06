@@ -6,7 +6,7 @@ Wants=time-sync.target
 
 [Service]
 ExecStart=/home/pi/home-air-quality/brightness.sh
-WorkingDirectory=/home/pi/home-air-quality
+WorkingDirectory=/home/pi/home-air-quality-and-assistant
 StandardOutput=inherit
 StandardError=inherit
 User=pi
@@ -14,18 +14,17 @@ User=pi
 StartLimitInterval=5min
 StartLimitBurst=5
 
-# disabled for now since notifications for watchdog is not supported yet
-#Restart=always
-#RestartSec=10s
-#TimeoutSec=infinity
-#TimeoutStartSec=60s
-#TimeoutStopSec=20s
+Restart=always
+RestartSec=10s
+TimeoutSec=infinity
+TimeoutStartSec=90s
+TimeoutStopSec=20s
 # Turn it on only when you are absolutely and positively sure that this service works tip-top, otherwise you may experience reboot loop
 #StartLimitAction=reboot
-# Watchdog unleashed. The value must not be lower than 60s + some time to eventually get data
-#WatchdogSec=120s
-#Type=notify
-#NotifyAccess=all
+# Watchdog unleashed. The value must not be lower than 30s
+WatchdogSec=90s
+Type=notify
+NotifyAccess=all
 
 [Install]
 WantedBy=graphical.target

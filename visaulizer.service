@@ -8,7 +8,7 @@ Wants=time-sync.target
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/pi/.Xauthority
 ExecStart=/home/pi/home-air-quality/visualizer.sh
-WorkingDirectory=/home/pi/home-air-quality
+WorkingDirectory=/home/pi/home-air-quality-and-assistant
 StandardOutput=inherit
 StandardError=inherit
 User=pi

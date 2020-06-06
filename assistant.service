@@ -9,7 +9,7 @@ Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/pi/.Xauthority
 Environment=PYTHONUNBUFFERED=true
 ExecStart=python3 assistant.py
-WorkingDirectory=/home/pi/home-air-quality/assistant
+WorkingDirectory=/home/pi/home-air-quality-and-assistant/assistant
 StandardOutput=inherit
 StandardError=inherit
 User=pi
@@ -17,7 +17,6 @@ User=pi
 StartLimitInterval=5min
 StartLimitBurst=5
 
-# disabled for now since notifications for watchdog is not supported yet
 Restart=always
 RestartSec=10s
 TimeoutSec=infinity
