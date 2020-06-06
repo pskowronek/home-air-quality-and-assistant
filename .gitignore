@@ -82,3 +82,5 @@ atlassian-ide-plugin.xml
 # CMake
 cmake-build-debug/
 
+# Local build dir
+build/

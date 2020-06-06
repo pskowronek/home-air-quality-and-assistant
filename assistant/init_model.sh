@@ -25,8 +25,12 @@ echo "and extract contents of this DEB file from this path: $PATH_IN_DEB to mode
 echo "You may also install this DEB package, but then you need to provide correct path in config.yaml."
 echo ""
 
-echo "Press Enter to continue the automatic precedure, otherwise press CTRL-C..."
-read
+read -p "Do you want to contiune with the automatic procedure? (Y/N) " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    exit 0
+fi
 
 echo "Uploading keyphrase.list to www.speech.cs.cmu.edu..."
 URL=$(curl -F 'formtype=simple' -F 'corpus=@keyphrase.list' -s -L "$LM_TOOL" | grep -o 'a href="[^\"]*' | grep -Eo '(http|https)://[^\"]+')
@@ -37,9 +41,12 @@ echo "The generated model file is available here: $URL"
 
 tmpDir=$(mktemp -d -t ci-XXXXXXXXXX)
 tmpTgz=$(mktemp $tmpDir/assistant-model.XXXXXX.tgz)
-tmpDeb=$(mktemp $tmpDir/assistant-model.XXXXXX.deb)
+tmpDeb=$(mktemp $tmpDir/assistant-acoustic.XXXXXX.deb)
 tmpLmTool=$tmpDir/output
 tmpDebExt=$tmpDir/deb_extracted
+rm -rf model
+mkdir -p model/hmm
+
 echo "Going to download and extract TGZ to model directory to $tmpLmTool..."
 curl $URL --output $tmpTgz
 
@@ -54,11 +61,11 @@ curl $HMM_DEB --output $tmpDeb
 cd $tmpDir
 ar x $tmpDeb
 mkdir $tmpDebExt
-tar zxvf data.tar.xz -C $tmpDebExt
+tar xvf data.tar.xz -C $tmpDebExt
 cd -
 
 echo "Going to move acoustic model to model/hmm..."
-mv $tmpDebExt$PATH_IN_DEB model/hmm
+mv $tmpDebExt$PATH_IN_DEB/* model/hmm
 rm $tmpDeb
 
 echo "Done"
