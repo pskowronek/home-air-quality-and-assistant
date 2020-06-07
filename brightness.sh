@@ -60,9 +60,12 @@ while true
 do
     systemd-notify WATCHDOG=1 --status="operating..."
     sleep $LOOP_ITER_SLEEP
+    # Forced brightness controlled by HUP signal
     if (( $FORCED_BRIGHTNESS == $FORCED_BRIGHTNESS_LOOP_COUNT )); then
         FORCED_BRIGHTNESS=$(( $FORCED_BRIGHTNESS - 1 ))
         LCD_BRIGHTNESS=$(( $LCD_BRIGHTNESS_PREV * 3 ))
+        # Override prev to lower number of increments (to save time and CPU)
+        LCD_BRIGHTNESS_PREV=$$(( $LCD_BRIGHTNESS - $LCD_BRIGHTNESS_TRESHOLD ))
         if (( $LCD_BRIGHTNESS > 1023 )); then
             LCD_BRIGHTNESS=1023
         fi
@@ -70,6 +73,7 @@ do
     elif (( $FORCED_BRIGHTNESS > 0 )); then
         FORCED_BRIGHTNESS=$(( $FORCED_BRIGHTNESS - 1 ))
         echo "Forced brightness, counting down to normal operation: $FORCED_BRIGHTNESS -> 0"
+    # Normal operation
     else
         LUX=$(( $(i2cget -y 1 $LUMI_SENSOR_ADDRESS 0x8c w) )) # with hex to value conversion
         echo "Got data from lumi sensor - full spectrum (IR + Visible) is: $LUX lux"
@@ -91,9 +95,7 @@ do
         for i in $(eval echo "{$LCD_BRIGHTNESS_PREV..$LCD_BRIGHTNESS..$LCD_BRIGHTNESS_STEP}")
         do
             echo -e "   $i -> $LCD_BRIGHTNESS"
-
             gpio -g pwm $LCD_BRIGHTNESS_GPIO $i
-            #sleep 0.05s
         done
         # redo - sometimes something is changing the mode or what?
         gpio pwm-ms
