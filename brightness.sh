@@ -22,7 +22,7 @@ echo "Going to start brightness control in 60s..."
 gpio -g mode $LCD_BRIGHTNESS_GPIO output
 gpio -g write $LCD_BRIGHTNESS_GPIO 1
 # notify systemd watchdog
-systemd-notify --booted
+systemd-notify --status="started, waiting 60s to start"
 sleep 60s
 
 # INIT
@@ -44,10 +44,12 @@ i2cset -r -y 1 $LUMI_SENSOR_ADDRESS 0x80 3 b
 i2cset -r -y 1 $LUMI_SENSOR_ADDRESS 0x81 2 b
 # /INIT
 
+systemd-notify --ready --status="ready and operating..."
+
 # Neverending story...
 while true
 do
-    systemd-notify WATCHDOG=1
+    systemd-notify WATCHDOG=1 --status="operating..."
     sleep $LOOP_ITER_SLEEP
     LUX=$(( $(i2cget -y 1 $LUMI_SENSOR_ADDRESS 0x8c w) )) # with hex to value conversion
     echo "Got data from lumi sensor - full spectrum (IR + Visible) is: $LUX lux"

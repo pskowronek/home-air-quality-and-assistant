@@ -1,5 +1,5 @@
 [Unit]
-Description=home-air-quality
+Description=assistant-service-of-home-air-quality-and-assistant
 After=network.target
 # Hopefully it should be enforced: https://github.com/systemd/systemd/issues/5097
 Wants=time-sync.target
@@ -18,7 +18,7 @@ StartLimitInterval=5min
 StartLimitBurst=5
 
 Restart=always
-RestartSec=10s
+RestartSec=60s
 TimeoutSec=infinity
 TimeoutStartSec=60s
 TimeoutStopSec=20s

@@ -33,7 +33,8 @@ echo "Going to install required system libraries..."
 sudo apt install ar
 
 # required by assistant
-sudo apt install libpulse-dev \
+sudo apt install default-jre \
+                 libpulse-dev \
                  portaudio19-dev \
                  python-pyaudio \
                  python3-pyaudio \
