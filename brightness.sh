@@ -14,16 +14,20 @@ LCD_BRIGHTNESS_STEP=10
 LOOP_ITER_SLEEP="0.5s"
 # Trigger brightness change only if it changed by this value (in normalized range of 0-1023)
 LCD_BRIGHTNESS_TRESHOLD=5
+# The number of loop iterations the forced brightness should exist (120 * LOOP_ITER_SLEEP ~= 1m)
+FORCED_BRIGHTNESS_LOOP_COUNT=120
+# Delay before starting to operate - 60s is OK to wait for the end of boot so we can reliably operate gpio
+START_DELAY=60s
 
 # /CONFIGURATION
 
-echo "Going to start brightness control in 60s..."
+echo "Going to start brightness control in $START_DELAY..."
 # TODO Apparently sometimes we initialize too early and brightness control won't work - to be investigated later (something is overriding gpio pwm-ms?)
 gpio -g mode $LCD_BRIGHTNESS_GPIO output
 gpio -g write $LCD_BRIGHTNESS_GPIO 1
 # notify systemd watchdog
-systemd-notify --status="started, waiting 60s to start"
-sleep 60s
+systemd-notify --status="started, waiting $START_DELAY to start"
+sleep $START_DELAY
 
 # INIT
 function clean_exit()
@@ -32,9 +36,14 @@ function clean_exit()
     gpio -g pwm $LCD_BRIGHTNESS_GPIO $LCD_BRIGHTNESS_DEFAULT_VALUE
     exit
 }
+FORCED_BRIGHTNESS=0
 trap clean_exit SIGINT
+trap ' FORCED_BRIGHTNESS=$FORCED_BRIGHTNESS_LOOP_COUNT; echo "Requested forced brightness" ' SIGHUP
+trap ' FORCED_BRIGHTNESS=0; echo "Requested the end of forced brightness" ' SIGCONT
+
 
 LCD_BRIGHTNESS_PREV=$(( $LCD_BRIGHTNESS_DEFAULT_VALUE - 2 * $LCD_BRIGHTNESS_TRESHOLD ))
+LCD_BRIGHTNESS=0
 
 gpio -g mode $LCD_BRIGHTNESS_GPIO pwm
 gpio pwm-ms
@@ -51,17 +60,28 @@ while true
 do
     systemd-notify WATCHDOG=1 --status="operating..."
     sleep $LOOP_ITER_SLEEP
-    LUX=$(( $(i2cget -y 1 $LUMI_SENSOR_ADDRESS 0x8c w) )) # with hex to value conversion
-    echo "Got data from lumi sensor - full spectrum (IR + Visible) is: $LUX lux"
-
-    # Formula to calculate brightness taken from https://www.maximintegrated.com/en/design/technical-documents/app-notes/4/4913.html
-    # remarks:
-    # - doing "/1" to round to integer
-    # - *1024/100 does mapping to range of PWM (0-1023)
-    # - changed original formula to replace 27.059 with 0.1 - so it won't shine at night so much
-    LCD_BRIGHTNESS=1023
-    if (( $LUX <= 1254 )); then
-        LCD_BRIGHTNESS=$( echo "scale=0; (( 9.9323*l( $LUX ) + 0.1 )*1023 / 100 )/1" | bc -l ) # " <- fix for mcedit syntax
+    if (( $FORCED_BRIGHTNESS == $FORCED_BRIGHTNESS_LOOP_COUNT )); then
+        FORCED_BRIGHTNESS=$(( $FORCED_BRIGHTNESS - 1 ))
+        LCD_BRIGHTNESS=$(( $LCD_BRIGHTNESS_PREV * 3 ))
+        if (( $LCD_BRIGHTNESS > 1023 )); then
+            LCD_BRIGHTNESS=1023
+        fi
+        echo "Forcing brightness 3 times (up to 100% of LCD brightness) as requested"
+    elif (( $FORCED_BRIGHTNESS > 0 )); then
+        FORCED_BRIGHTNESS=$(( $FORCED_BRIGHTNESS - 1 ))
+        echo "Forced brightness, counting down to normal operation: $FORCED_BRIGHTNESS -> 0"
+    else
+        LUX=$(( $(i2cget -y 1 $LUMI_SENSOR_ADDRESS 0x8c w) )) # with hex to value conversion
+        echo "Got data from lumi sensor - full spectrum (IR + Visible) is: $LUX lux"
+        # Formula to calculate brightness taken from https://www.maximintegrated.com/en/design/technical-documents/app-notes/4/4913.html
+        # remarks:
+        # - doing "/1" to round to integer
+        # - *1024/100 does mapping to range of PWM (0-1023)
+        # - changed original formula to replace 27.059 with 0.1 - so it won't shine at night so much
+        LCD_BRIGHTNESS=1023
+        if (( $LUX <= 1254 )); then
+            LCD_BRIGHTNESS=$( echo "scale=0; (( 9.9323*l( $LUX ) + 0.1 )*1023 / 100 )/1" | bc -l ) # " <- fix for mcedit syntax
+        fi
     fi
 
     echo "Last LCD brightness was: $LCD_BRIGHTNESS_PREV, now it should be set to: $LCD_BRIGHTNESS"
