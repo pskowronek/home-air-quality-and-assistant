@@ -1,5 +1,6 @@
 [Unit]
 Description=assistant-service-of-home-air-quality-and-assistant
+After=graphical.target
 After=network.target
 # Hopefully it should be enforced: https://github.com/systemd/systemd/issues/5097
 Wants=time-sync.target
