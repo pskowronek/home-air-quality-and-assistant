@@ -11,7 +11,7 @@ brighten_display
 
 # Using TTF fonts (-fa & -fs) instead of bitmap (-fn) to better fit into stream
 xterm -class UXTerm -title HAQnR -fa 'Monospace' -fs 18 \
-      -u8 -fullscreen -u8 +wf +sb -bc -baudrate 230400 +s -e "TAG=assistant; curl wttr.in/?Ftnqp0; sleep 15s" &
+      -u8 -fullscreen -u8 +wf +sb -bc -baudrate 230400 +s -e "TAG=assistant; curl wttr.in/?Ftnqp0; sleep 15s"
 
 # One can also use lxterm which calls xterm:
 #lxterm -fullscreen -fa 'Monospace' -fs 18 +sb -bc -e "TAG=assistant; curl wttr.in/?Ftnqp0; sleep 15s"

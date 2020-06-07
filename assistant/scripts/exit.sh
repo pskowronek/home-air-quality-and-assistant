@@ -16,6 +16,6 @@ xterm -class UXTerm -title HAQnR -fn "-adobe-courier-medium-r-normal--25-180-100
 #lxterm -fullscreen -fa 'Monospace' -fs 25 +sb -bc -e "TAG=assistant; echo 'Bye!' | pv -qL 8; sleep 2s" &
 
 kill $TO_KILL
-aplay res/exitctx.wav
+aplay res/exit.wav
 sleep 2s
 brightness_normal

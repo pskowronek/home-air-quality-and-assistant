@@ -16,8 +16,8 @@ LOOP_ITER_SLEEP="0.5s"
 LCD_BRIGHTNESS_TRESHOLD=5
 # The number of loop iterations the forced brightness should exist (120 * LOOP_ITER_SLEEP ~= 1m)
 FORCED_BRIGHTNESS_LOOP_COUNT=120
-# Delay before starting to operate - 60s is OK to wait for the end of boot so we can reliably operate gpio
-START_DELAY=60s
+# Delay before starting to operate (by using After graphical.target it is not required to wait too much anymore)
+START_DELAY=1s
 
 # /CONFIGURATION
 
@@ -65,10 +65,10 @@ do
         FORCED_BRIGHTNESS=$(( $FORCED_BRIGHTNESS - 1 ))
         LCD_BRIGHTNESS=$(( $LCD_BRIGHTNESS_PREV * 3 ))
         # Override prev to lower number of increments (to save time and CPU)
-        LCD_BRIGHTNESS_PREV=$$(( $LCD_BRIGHTNESS - $LCD_BRIGHTNESS_TRESHOLD ))
         if (( $LCD_BRIGHTNESS > 1023 )); then
             LCD_BRIGHTNESS=1023
         fi
+        LCD_BRIGHTNESS_PREV=$(( $LCD_BRIGHTNESS - $LCD_BRIGHTNESS_TRESHOLD -1 ))
         echo "Forcing brightness 3 times (up to 100% of LCD brightness) as requested"
     elif (( $FORCED_BRIGHTNESS > 0 )); then
         FORCED_BRIGHTNESS=$(( $FORCED_BRIGHTNESS - 1 ))
@@ -76,7 +76,7 @@ do
     # Normal operation
     else
         LUX=$(( $(i2cget -y 1 $LUMI_SENSOR_ADDRESS 0x8c w) )) # with hex to value conversion
-        echo "Got data from lumi sensor - full spectrum (IR + Visible) is: $LUX lux"
+        #echo "Got data from lumi sensor - full spectrum (IR + Visible) is: $LUX lux"  # don't spam syslog too much :)
         # Formula to calculate brightness taken from https://www.maximintegrated.com/en/design/technical-documents/app-notes/4/4913.html
         # remarks:
         # - doing "/1" to round to integer
@@ -88,7 +88,7 @@ do
         fi
     fi
 
-    echo "Last LCD brightness was: $LCD_BRIGHTNESS_PREV, now it should be set to: $LCD_BRIGHTNESS"
+    #echo "Last LCD brightness was: $LCD_BRIGHTNESS_PREV, now it should be set to: $LCD_BRIGHTNESS"  # don't spam syslog too much :)
 
     if (($LCD_BRIGHTNESS > $LCD_BRIGHTNESS_PREV + $LCD_BRIGHTNESS_TRESHOLD || $LCD_BRIGHTNESS < $LCD_BRIGHTNESS_PREV - $LCD_BRIGHTNESS_TRESHOLD)); then
         echo "Setting LCD brightness to reach $LCD_BRIGHTNESS..."
@@ -101,8 +101,8 @@ do
         gpio pwm-ms
         # set final value as the loop above could not reach the desired value due to step value
         gpio -g pwm $LCD_BRIGHTNESS_GPIO $LCD_BRIGHTNESS
-    else
-        echo "No need to adjust brightness - still within threshold"
+    #else
+        #echo "No need to adjust brightness - still within threshold"  # dont' spam syslog too much :)
     fi
     LCD_BRIGHTNESS_PREV=$LCD_BRIGHTNESS
 done
