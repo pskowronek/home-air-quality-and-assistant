@@ -9,8 +9,8 @@ Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/pi/.Xauthority
 ExecStart=/home/pi/home-air-quality-and-assistant/visualizer.sh
 WorkingDirectory=/home/pi/home-air-quality-and-assistant
-StandardOutput=inherit
-StandardError=inherit
+StandardOutput=journal
+StandardError=journal
 User=pi
 
 StartLimitInterval=5min
