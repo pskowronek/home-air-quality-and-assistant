@@ -53,6 +53,10 @@ invocation_ctx = None
 in_speech_bf = False
 decoder.start_utt()
 
+# Run some initialization scripts for terminal displays
+subprocess.Popen([os.path.join(os.getcwd(), config['init_exec']]).communicate()
+
+
 notifier.notify("READY=1")
 
 def calc_similarity(command, sentence, hyp_str):
@@ -109,7 +113,7 @@ while True:
                     if hyp_str in invocations:
                         print("Matched invocation: '%s'" % hyp_str) 
                         invocation_ctx = hyp_str
-                        subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['enter']), invocation_ctx, hyp_str]).communicate() 
+                        subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['enter']), invocation_ctx, hyp_str]).communicate()
                     else:
                         print('Unknown invocation or wrongly heard, silently ignoring')
                 else:

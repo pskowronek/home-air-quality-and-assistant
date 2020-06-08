@@ -2,6 +2,7 @@ hmm_path: model/hmm
 dict_path: model/lmtool.dic
 lm_path: model/lmtool.lm
 keyphrase_path: keyphrase.list
+init_exec: scripts/init.sh
 
 invocations:
     bruce:

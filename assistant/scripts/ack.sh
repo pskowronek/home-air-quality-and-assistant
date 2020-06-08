@@ -2,17 +2,9 @@
 
 cd "$(dirname "$0")"
 source ./_helpers.sh
-export DISPLAY=:0.0 
+export DISPLAY=:0.0
 
 brighten_display
-TO_KILL=$(pgrep -f "term.*TAG=assistant")
-# using fn and bitmap fonts as they terminal starts quicker (2s vs 3.5s). TTF can be loaded by using: -fa 'Monospace' -fs 25
-# list of mono fonts can be found by executing this command: xlsfonts -fn '*-*-*-*-*-*-*-*-*-*-*-m*'
-xterm -class UXTerm -title HAQnR -fn "-adobe-courier-medium-r-normal--25-180-100-100-m-150-iso8859-1" \
-      -u8 -fullscreen -u8 +wf +sb -bc -baudrate 230400 +s -e "TAG=assistant; echo 'Roger that!' | pv -qL 10; sleep 10s" &
-
-# One can also use lxterm which calls xterm:
-#lxterm -fullscreen -fa 'Monospace' -fs 25 +sb -bc -e "TAG=assistant; echo 'Roger that!' | pv -qL 20; sleep 10s" &
+(show_terminal "TERM_25"; echo 'Roger that!' | pv -qL 20 > $TERM_25; sleep 5s; show_main) &
 
 espeak -v+m2 -s160 -a30 -p40 "Roger that!"
-kill $TO_KILL
