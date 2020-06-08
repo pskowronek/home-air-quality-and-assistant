@@ -54,7 +54,7 @@ in_speech_bf = False
 decoder.start_utt()
 
 # Run some initialization scripts for terminal displays
-subprocess.Popen([os.path.join(os.getcwd(), config['init_exec']]).communicate()
+subprocess.Popen([os.path.join(os.getcwd(), config['init_exec']).communicate()
 
 
 notifier.notify("READY=1")
