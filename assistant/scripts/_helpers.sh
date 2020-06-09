@@ -4,16 +4,8 @@
 
 # Pipes and desktops where terminal of given font size read data from
 TERM_8="/tmp/assistant_term8.pipe"
-TERM_8_DESKTOP=1
 TERM_17="/tmp/assistant_term18.pipe"
-TERM_17_DESKTOP=2
 TERM_25="/tmp/assistant_term25.pipe"
-TERM_25_DESKTOP=3
-
-# To accomodate main screen plus terminals above (1+3)
-MAX_DESKTOPS=4
-# Desktop number that is the "main" one
-MAIN_DESKTOP=0
 
 function brighten_display {
     BRIGHTNESS_PID=$(pgrep brightness.sh)
@@ -38,46 +30,27 @@ function init_terminals {
 
     TERM_PID=$(pgrep -f "term.*TAG=TERM_8_")
     if [ -z "$TERM_PID" ]; then
-        xdotool set_num_desktops $MAX_DESKTOPS
-        (
-            lxterm -iconic -fullscreen -title "TERM_8" -fa 'Monospace' -fs 8 +sb -bc -e "TAG=TERM_8_; tail -f $TERM_8" &
-            sleep 5s
-            xdotool search --name "TERM_8" set_desktop_for_window $TERM_8_DESKTOP
-            xdotool search --name "TERM_8" windowmap
-        )
+        ( lxterm -iconic -fullscreen -title "TERM_8" -fa 'Monospace' -fs 8 +sb -bc -e "TAG=TERM_8_; tail -f $TERM_8" ) &
     fi
     TERM_PID=$(pgrep -f "term.*TAG=TERM_17_")
     if [ -z "$TERM_PID" ]; then
-        xdotool set_num_desktops $MAX_DESKTOPS
-        (
-            lxterm -iconic -fullscreen -title "TERM_17" -fa 'Monospace' -fs 17 +sb -bc -e "TAG=TERM_17_; tail -f $TERM_17" &
-            sleep 5s
-            xdotool search --name "TERM_17" set_desktop_for_window $TERM_17_DESKTOP
-            xdotool search --name "TERM_17" windowmap
-        )
+        ( lxterm -iconic -fullscreen -title "TERM_17" -fa 'Monospace' -fs 17 +sb -bc -e "TAG=TERM_17_; tail -f $TERM_17" ) &
     fi
     TERM_PID=$(pgrep -f "term.*TAG=TERM_25_")
     if [ -z "$TERM_PID" ]; then
-        xdotool set_num_desktops $MAX_DESKTOPS
-        (
-            lxterm -iconic -fullscreen -title "TERM_25" -fa 'Monospace' -fs 25 +sb -bc -e "TAG=TERM_25_; tail -f $TERM_25" &
-            sleep 5s
-            xdotool search --name "TERM_25" set_desktop_for_window $TERM_25_DESKTOP
-            xdotool search --name "TERM_25" windowmap
-        )
+        ( lxterm -iconic -fullscreen -title "TERM_25" -fa 'Monospace' -fs 25 +sb -bc -e "TAG=TERM_25_; tail -f $TERM_25" ) &
     fi
 }
 
 function show_terminal {
     init_terminals
-    DESKTOP="$1_DESKTOP"
     clear > ${!1}
-    # set desktop
-    xdotool set_desktop ${!DESKTOP}
-    # de-iconify one more time
-    xdotool search --name $1 windowmap &
+    wmctrl -a $1
+# this one does the same as wmtrl above, but it is 3 times quicker
+#    xdotool search --maxdepth 2 --limit 1 --name $1 windowactivate &
+
 }
 
-function show_main {
-    xdotool set_desktop $MAIN_DESKTOP
+function hide_terminal {
+    xdotool search --maxdepth 2 --limit 1 --name $1 windowminimize &
 }

@@ -38,6 +38,7 @@ sudo apt install default-jre \
                  portaudio19-dev \
                  python-pyaudio \
                  python3-pyaudio \
+                 wmctrl \
                  xdotool \
                  pv \
                  xterm
