@@ -1,10 +1,17 @@
 #!/bin/bash
 
+# Script executed when nothing (no command) was understood while being in invocation context.
+# Args:
+# $1 - voice parameters
+# $2 - invocation context (the invocation name)
+# $3 - sentence that was heard and resulted with calling this script
+
 cd "$(dirname "$0")"
-source ./_helpers.sh
 export DISPLAY=:0.0
+export TERM=xterm
+source ./_helpers.sh
 
 brighten_display &
-(show_terminal "TERM_25"; echo -e "Didn't get that.\nCall me again!" > $TERM_25; sleep 5s; hide_terminal "TERM_25") &
+(show_terminal "TERM_25"; echo -e "Didn't get that.\nCall me again!" > $TERM_25; sleep 5s) &
 
-espeak -v+m2 -s160 -a30 -p40 "Didn't get that. Speak my name and try again."
+espeak $1 "Didn't get that. Speak my name and try again."

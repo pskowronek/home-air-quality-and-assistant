@@ -91,12 +91,15 @@ def main():
             if not in_speech_bf:
                 decoder.end_utt()
                 if hyp_str:
-                    logging.info("Heard: '%s' while being in '%s' context (score: %d, confidence: %d -> in log scale %d)" % (hyp_str, invocation_ctx, hyp.best_score, logmath.exp(hyp.prob), hyp.prob))
+                    logging.info("Heard: '%s' while being in '%s' context (score: %d, confidence: %d -> in log scale %d)" %
+                                 (hyp_str, invocation_ctx, hyp.best_score, logmath.exp(hyp.prob), hyp.prob))
+
                     if not invocation_ctx:
                         if hyp_str in invocations:
                             logging.info("Matched invocation: '%s'" % hyp_str) 
                             invocation_ctx = hyp_str
-                            subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['enter']), invocation_ctx, hyp_str]).communicate()
+                            subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['enter']),
+                                             invocations[invocation_ctx]['voice_params'], invocation_ctx, hyp_str]).communicate()
                             interaction_time = time.time()
                         else:
                             logging.debug('Unknown invocation or wrongly heard, silently ignoring')
@@ -119,23 +122,30 @@ def main():
                             if best[0] > 90:
                                 command = best[1][0]  # here might be some randomness
                                 logging.info("The best matching command is '%s', executing: %s" % (command['name'], command['exec']))
-                                subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['ack']), invocation_ctx, hyp_str]).communicate()
-                                subprocess.Popen([os.path.join(os.getcwd(), command['exec']), invocation_ctx, command['name']]).communicate()
-                                subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['exit']), invocation_ctx, hyp_str])
+                                subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['ack']),
+                                                 invocations[invocation_ctx]['voice_params'], invocation_ctx, hyp_str]).communicate()
+                                subprocess.Popen([os.path.join(os.getcwd(), command['exec']),
+                                                 invocations[invocation_ctx]['voice_params'], invocation_ctx, command['name']]).communicate()
+                                subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['exit']),
+                                                 invocations[invocation_ctx]['voice_params'], invocation_ctx, hyp_str])
                                 invocation_ctx = None
                                 matched = True
                             break  # take only the first which should be the best
 
                         if not matched:
                             logging.info("... not matched, ignoring")
-                            subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['noop']), invocation_ctx, hyp_str]).communicate()
-                            subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['exit']), invocation_ctx, hyp_str])
+                            subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['noop']),
+                                              invocations[invocation_ctx]['voice_params'], invocation_ctx, hyp_str]).communicate()
+                            subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['exit']),
+                                              invocations[invocation_ctx]['voice_params'], invocation_ctx, hyp_str])
                             invocation_ctx = None
 
                 decoder.start_utt()
 
         if invocation_ctx and interaction_time and time.time() > interaction_time + interaction_timeout:
-            subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['exit']), invocation_ctx, None])
+            logging.info("The invocation context has just timed out, returning to listen for invocation word.")
+            subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['exit']),
+                              invocations[invocation_ctx]['voice_params'], invocation_ctx, None])
             invocation_ctx = None
             interaction_time = None
 
@@ -159,25 +169,28 @@ def calc_similarity(command, sentence, hyp_str):
     must_nots = command['must_not']
 
     hyp_words = hyp_str.split()
-    for must_not in must_nots:
-        if must_not in hyp_words:
-            score = 0
-            break
-    if score == 0:
-        return 0
+    if must_nots:
+        for must_not in must_nots:
+            if must_not in hyp_words:
+                score = 0
+                break
+        if score == 0:
+            return 0
 
-    for must in musts:
-        if must not in hyp_words:
-            score = 0
-            break
-    if score == 0:
-        return 0
+    if musts:
+        for must in musts:
+            if must not in hyp_words:
+                score = 0
+                break
+        if score == 0:
+            return 0
 
-    for should in shoulds:
-        if should in hyp_words:
-            score *= 1.2
-        else:
-            score *= 0.8
+    if shoulds:
+        for should in shoulds:
+            if should in hyp_words:
+                score *= 1.2
+            else:
+                score *= 0.8
     return score
 
 

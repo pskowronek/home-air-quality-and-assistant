@@ -1,12 +1,17 @@
 #!/bin/bash
 
+# Script executed when ending the interaction.
+# Args:
+# $1 - voice parameters
+# $2 - invocation context (the invocation name)
+
 cd "$(dirname "$0")"
+export DISPLAY=:0.0
+export TERM=xterm
 source ./_helpers.sh
-export DISPLAY=:0.0 
 
 brighten_display &
-(show_terminal "TERM_25"; echo 'Bye!' | pv -qL 20 > $TERM_25; sleep 3s; hide_terminal "TERM_25") &
+(show_terminal "TERM_25"; echo 'Bye!' > $TERM_25; sleep 3s; hide_terminals) &
 
 aplay res/exit.wav
-sleep 2s
-brightness_normal
+brightness_normal &

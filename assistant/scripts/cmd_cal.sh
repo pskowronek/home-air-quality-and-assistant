@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Script executed as a confirmation that the sentence was understood
-# and further actions will be performed.
+# Script executed as intended command.
 # Args:
 # $1 - voice parameters
 # $2 - invocation context (the invocation name)
@@ -13,6 +12,6 @@ export TERM=xterm
 source ./_helpers.sh
 
 brighten_display &
-(show_terminal "TERM_25"; echo 'Roger that!' > $TERM_25; sleep 5s) &
 
-espeak $1 "Roger that!"
+(show_terminal "TERM_17"; script --flush --quiet --command cal > $TERM_17; sleep 15s; hide_terminal "TERM_17")
+

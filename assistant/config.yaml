@@ -11,6 +11,7 @@ invocations:
       ack: scripts/ack.sh
       noop: scripts/noop.sh
       exit: scripts/exit.sh
+      voice_params: -v+m2 -s160 -a30 -p40
       commands:
           - name: weather
             sentence:
@@ -28,7 +29,7 @@ invocations:
             must_not:
               - forecast
               - tomorrow
-            exec: scripts/weather_today.sh
+            exec: scripts/cmd_weather_today.sh
           - name: forecast
             sentence:
               - Whats the weather forecast
@@ -46,4 +47,103 @@ invocations:
             must_not:
               - today
               - like
-            exec: scripts/weather_tomorrow.sh
+            exec: scripts/cmd_weather_tomorrow.sh
+          - name: calendar
+            sentence:
+              - Show me calendar
+            must:
+              - calendar
+            should:
+              - show
+            must_not:
+            exec: scripts/cmd_cal.sh
+          - name: uptime
+            sentence:
+              - Show me uptime
+            must:
+              - uptime
+            should:
+              - show
+            must_not:
+            exec: scripts/cmd_uptime.sh
+          - name: reboot
+            sentence:
+              - Reboot now
+            must:
+              - reboot
+              - now
+            should:
+            must_not:
+              - not
+            exec: scripts/cmd_reboot.sh
+    cybill:
+      enter: scripts/enter.sh
+      ack: scripts/ack.sh
+      noop: scripts/noop.sh
+      exit: scripts/exit.sh
+      voice_params: -v+f5 -s160 -a30 -p40
+      commands:
+          - name: weather
+            sentence:
+              - Whats the weather like
+              - What is the weather like
+              - What the weather like
+              - Whats the weather today
+              - What is the weather today
+              - What the weather today
+            must:
+              - weather
+            should:
+              - like
+              - what
+            must_not:
+              - forecast
+              - tomorrow
+            exec: scripts/cmd_weather_today.sh
+          - name: forecast
+            sentence:
+              - Whats the weather forecast
+              - What is the weather forecast
+              - What the weather forecast
+              - Whats the weather tomorrow
+              - What is the weather tomorrow
+              - What the weather tomorrow
+            must:
+              - weather
+            should:
+              - what
+              - forecast
+              - tomorrow
+            must_not:
+              - today
+              - like
+            exec: scripts/cmd_weather_tomorrow.sh
+          - name: calendar
+            sentence:
+              - Show me calendar
+            must:
+              - calendar
+            should:
+              - show
+            must_not:
+            exec: scripts/cmd_cal.sh
+          - name: uptime
+            sentence:
+              - Show me uptime
+            must:
+              - uptime
+            should:
+              - show
+            must_not:
+            exec: scripts/cmd_uptime.sh
+          - name: reboot
+            sentence:
+              - Reboot now
+            must:
+              - reboot
+              - now
+            should:
+            must_not:
+              - not
+            exec: scripts/cmd_reboot.sh
+

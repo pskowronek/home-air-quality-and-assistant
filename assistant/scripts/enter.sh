@@ -1,10 +1,17 @@
 #!/bin/bash
 
+# Script executed as a prompt when invocation name was heard
+# Args:
+# $1 - voice parameters
+# $2 - invocation context (the invocation name)
+# $3 - sentence that was heard and resulted with calling this script
+
 cd "$(dirname "$0")"
+export DISPLAY=:0.0
+export TERM=xterm
 source ./_helpers.sh
-export DISPLAY=:0.0 
 
 brighten_display &
-(show_terminal "TERM_25"; echo 'What can I do for you?' | pv -qL 20 > $TERM_25; sleep 5s; hide_terminal "TERM_25") &
+(show_terminal "TERM_25"; echo 'What can I do for you?' > $TERM_25; sleep 5s) &
 
 aplay res/enter.wav

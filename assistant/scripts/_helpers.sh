@@ -4,7 +4,7 @@
 
 # Pipes and desktops where terminal of given font size read data from
 TERM_8="/tmp/assistant_term8.pipe"
-TERM_17="/tmp/assistant_term18.pipe"
+TERM_17="/tmp/assistant_term17.pipe"
 TERM_25="/tmp/assistant_term25.pipe"
 
 function brighten_display {
@@ -52,5 +52,11 @@ function show_terminal {
 }
 
 function hide_terminal {
-    xdotool search --maxdepth 2 --limit 1 --name $1 windowminimize &
+    ( xdotool search --maxdepth 2 --limit 1 --name $1 windowminimize; clear > ${!1} )&
+}
+
+function hide_terminals {
+    hide_terminal "TERM_8"
+    hide_terminal "TERM_17"
+    hide_terminal "TERM_25"
 }
