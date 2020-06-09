@@ -46,7 +46,7 @@ function show_terminal {
     init_terminals
     clear > ${!1}
     wmctrl -a $1
-# this one does the same as wmtrl above, but it is 3 times quicker
+# this one does the same as wmctrl above, but it is 3 times quicker
 #    xdotool search --maxdepth 2 --limit 1 --name $1 windowactivate &
 
 }

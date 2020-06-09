@@ -3,6 +3,7 @@ dict_path: model/lmtool.dic
 lm_path: model/lmtool.lm
 keyphrase_path: keyphrase.list
 init_exec: scripts/init.sh
+interaction_timeout: 30
 
 invocations:
     bruce:
