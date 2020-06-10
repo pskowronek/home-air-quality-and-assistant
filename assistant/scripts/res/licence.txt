@@ -1,5 +1,6 @@
 Sound bits taken from:
-enter.wav: by JustInvoke, https://freesound.org/people/JustInvoke/sounds/446111/
-exit.wav: by Heshl, https://freesound.org/people/Heshl/sounds/269159/
+enter.wav: by pan14, https://freesound.org/people/pan14/sounds/263133/
+exit.wav: by maisonsonique, https://freesound.org/people/maisonsonique/sounds/209675/
+
 
 
