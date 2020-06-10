@@ -41,6 +41,7 @@ sudo apt install default-jre \
                  wmctrl \
                  xdotool \
                  pv \
+                 fortune \
                  xterm
 
 echo "Finished with system libraries."

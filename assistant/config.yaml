@@ -81,6 +81,15 @@ invocations:
               - show
             must_not:
             exec: scripts/cmd_stocks.sh
+          - name: fortune
+            sentence:
+              - Tell me fortune for today
+            must:
+              - fortune
+            should:
+              - today
+            must_not:
+            exec: scripts/cmd_fortune.sh
           - name: uptime
             sentence:
               - Show me uptime
@@ -175,6 +184,15 @@ invocations:
               - show
             must_not:
             exec: scripts/cmd_stocks.sh
+          - name: fortune
+            sentence:
+              - Tell me fortune for today
+            must:
+              - fortune
+            should:
+              - today
+            must_not:
+            exec: scripts/cmd_fortune.sh
           - name: uptime
             sentence:
               - Show me uptime
