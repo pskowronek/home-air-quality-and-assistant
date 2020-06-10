@@ -145,7 +145,7 @@ def main():
         if invocation_ctx and interaction_time and time.time() > interaction_time + interaction_timeout:
             logging.info("The invocation context has just timed out, returning to listen for invocation word.")
             subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['exit']),
-                              invocations[invocation_ctx]['voice_params'], invocation_ctx, None])
+                              invocations[invocation_ctx]['voice_params'], invocation_ctx])
             invocation_ctx = None
             interaction_time = None
 

@@ -14,7 +14,7 @@ source ./_helpers.sh
 
 brighten_display &
 
-# Using wttr.in to display ASCII weather.
+# Using wttr.in to display ASCII moon status.
 # wttr.in is a cool thing! Check it out here https://github.com/chubin/wttr.in, more options can be seen this way: curl http://wttr.in/:help
-(show_terminal "TERM_17"; curl -m 10 wttr.in/?Ftnq0 > $TERM_17; sleep 15s; hide_terminal "TERM_17")
+(show_terminal "TERM_17"; curl -m 10 wttr.in/Moon > $TERM_17; sleep 15s; hide_terminal "TERM_17")
 

@@ -16,8 +16,8 @@ LOOP_ITER_SLEEP="0.5s"
 LCD_BRIGHTNESS_TRESHOLD=5
 # The number of loop iterations the forced brightness should exist (120 * LOOP_ITER_SLEEP ~= 1m)
 FORCED_BRIGHTNESS_LOOP_COUNT=120
-# Delay before starting to operate (by using After graphical.target it is not required to wait too much anymore)
-START_DELAY=1s
+# Delay before starting to operate (by using After graphical.target it's not so required to wait too much anymore, but still...)
+START_DELAY=30s
 
 # /CONFIGURATION
 

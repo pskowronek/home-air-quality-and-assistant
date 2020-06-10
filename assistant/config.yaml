@@ -48,6 +48,21 @@ invocations:
               - today
               - like
             exec: scripts/cmd_weather_tomorrow.sh
+          - name: moon
+            sentence:
+              - Hows the moon today
+              - How is the moon today
+              - Whats the moon status
+              - What is the moon status
+            must:
+              - moon
+            should:
+              - what
+              - how
+            must_not:
+              - weather
+              - like
+            exec: scripts/cmd_moon.sh
           - name: calendar
             sentence:
               - Show me calendar
@@ -57,6 +72,15 @@ invocations:
               - show
             must_not:
             exec: scripts/cmd_cal.sh
+          - name: stocks
+            sentence:
+              - Show my stocks
+            must:
+              - stocks
+            should:
+              - show
+            must_not:
+            exec: scripts/cmd_stocks.sh
           - name: uptime
             sentence:
               - Show me uptime
@@ -118,6 +142,21 @@ invocations:
               - today
               - like
             exec: scripts/cmd_weather_tomorrow.sh
+          - name: moon
+            sentence:
+              - Hows the moon today
+              - How is the moon today
+              - Whats the moon status
+              - What is the moon status
+            must:
+              - moon
+            should:
+              - what
+              - how
+            must_not:
+              - weather
+              - like
+            exec: scripts/cmd_moon.sh
           - name: calendar
             sentence:
               - Show me calendar
@@ -127,6 +166,15 @@ invocations:
               - show
             must_not:
             exec: scripts/cmd_cal.sh
+          - name: stocks
+            sentence:
+              - Show my stocks
+            must:
+              - stocks
+            should:
+              - show
+            must_not:
+            exec: scripts/cmd_stocks.sh
           - name: uptime
             sentence:
               - Show me uptime
