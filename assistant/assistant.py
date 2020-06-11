@@ -136,9 +136,6 @@ def main():
                             logging.info("... not matched, ignoring")
                             subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['noop']),
                                               invocations[invocation_ctx]['voice_params'], invocation_ctx, hyp_str]).communicate()
-                            subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['exit']),
-                                              invocations[invocation_ctx]['voice_params'], invocation_ctx, hyp_str])
-                            invocation_ctx = None
 
                 decoder.start_utt()
 

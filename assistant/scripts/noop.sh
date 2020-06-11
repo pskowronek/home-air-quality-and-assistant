@@ -12,6 +12,6 @@ export TERM=xterm
 source ./_helpers.sh
 
 brighten_display &
-(show_terminal "TERM_25"; echo -e "Didn't get that.\nCall me again!" > $TERM_25; sleep 5s) &
+(show_terminal "TERM_25"; echo -e "Didn't get that.\nSay it again" > $TERM_25; sleep 2s) &
 
-espeak $1 "Didn't get that. Speak my name and try again."
+espeak $1 "Didn't get that. Come again."
