@@ -19,9 +19,9 @@ StartLimitInterval=5min
 StartLimitBurst=5
 
 Restart=always
-RestartSec=60s
+RestartSec=120s
 TimeoutSec=infinity
-TimeoutStartSec=60s
+TimeoutStartSec=120s
 TimeoutStopSec=20s
 # Turn it on only when you are absolutely and positively sure that this service works tip-top, otherwise you may experience reboot loop
 #StartLimitAction=reboot
