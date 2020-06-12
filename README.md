@@ -10,8 +10,9 @@ _Language versions:_\
 This is project is a result of Covid-19 lockdown :)
 I've start with a simple monitoring tool to display in-door air quality using PMS5003ST or PMS7003 sensors and Raspberry Pi Zero with Waveshare 3.5inch display. Then things started to evolve :)
 Finally, the project includes:
-- a script/service for brightness control of Waveshare 3.5" display, that does not support this functionality OOB (see wiki how hacked my way to add this functionality)
-- a voice assistant service that works offline to:
+- a visualizer to display air quality readings - for this I use this project (that I'm also a co-author): [pm-home-station](https://github.com/rjaros87/pm-home-station/) - it uses alpha build that supports kiosk mode and PMS5003ST
+- a brightness service to control the Waveshare 3.5" display brightness, FYI this LCD display does not support this functionality OOB (see wiki how I hacked my way to add this functionality)
+- a voice assistant service that works offline by using [PocketSphinx](https://github.com/cmusphinx/pocketsphinx) to:
   - display weather and Moon details (thanks to [wttr.in](https://github.com/chubin/wttr.in) - awesome project btw)
   - tell some old jokes (using 'fortune' linux command)
   - state uptime
@@ -33,13 +34,14 @@ More photos of the assembled project enclosed in a custom-built LEGO™ housing 
 
 ## Hardware Requirements
 
-- [Raspberry Pi Zero](https://botland.com.pl/moduly-i-zestawy-raspberry-pi-zero/9749-raspberry-pi-zero-wh-512mb-ram-wifi-bt-41-ze-zlaczami.html) or similar
-- PMS7003 or PMS5003ST sensors
-- Waveshare 3.5" inch display for Raspberry Pi
+- [Raspberry Pi Zero](https://botland.com.pl/en/modules-and-kits-raspberry-pi-is-zero/9749-raspberry-pi-zero-wh-512mb-ram-wifi-bt41-with-connectors.html) or similar
+- [PMS7003](https://botland.com.pl/en/sensors-clean-air/10924-dust-air-clean-sensor-pms7003-33v-uart.html?search_query=PMS7003&results=6) or PMS5003ST sensors (the latter one is able to sense formaldehyde, temperature & humidity)
+- [Waveshare 3.5" inch display for Raspberry Pi](https://botland.com.pl/en/displays-raspberry-pi/4479-touch-screen-a-resistive-lcd-35-320x480px-gpio-for-raspberry-pi-432bzero-waveshare-9904.html)
+- [USB hub hat](https://botland.com.pl/en/raspberry-pi-hat-extenders-findings/8870-hub-usb-hat-4-port-hub-for-raspberry-pi-4b3b3bzero-waveshare-12694.html)
 - mini usb soundcard - try to find not the cheapest ones, but rather of good quality to have good microphone input (no noise etc)
 - a mini microphone
-- a mini speaker plus AMP module to power it up from stereo output
-- 16GB SD card (as fast as possible)
+- a mini speaker (like MG15 0.1W 8ohm) plus amp [module](https://botland.com.pl/en/mp3-wav-oog-midi/6641-amplifier-audio-stereo-2x3w-5v-arduino-bascom-avr-green.html)
+- 16GB SD card (as fast as possible due to voice assistant and responsiveness)
 
 ## Installation
 
@@ -56,9 +58,9 @@ More photos of the assembled project enclosed in a custom-built LEGO™ housing 
 - The installer above should ask you whether you want to register 3 services: visualizer, brightness, assistant (brightness is optional if don't have LCD display that supports this).
 This will let those service to automatically run when Raspberry boots up (more details [here](https://www.raspberrypi.org/documentation/linux/usage/systemd.md))
   - verify if service works by invoking the following commands:
-    - ``sudo systemctl start visualizer.service```
-    - ``sudo systemctl start brightness.service```
-    - ``sudo systemctl start assistant.service```
+    - ```sudo systemctl start visualizer.service```
+    - ```sudo systemctl start brightness.service```
+    - ```sudo systemctl start assistant.service```
   - reboot device to verify if it works
   - logs can be observed in /var/log/syslog: ```sudo tail -f /var/log/syslog```
 
