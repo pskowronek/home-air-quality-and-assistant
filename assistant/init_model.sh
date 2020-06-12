@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # A script to:
-# - upload keyphrase.list to pocketsphinx project (lmtool) to build model for offline use"
+# - upload keyphrase.list to pocketsphinx project (lmtool) to build model for offline use
 # - download US English acoustic model and extract it to model/hmm"
 # Basically, it (re)generates lexical & language models for words in keyphrases.list for offline use
 # and downloads acoustic models for US English.

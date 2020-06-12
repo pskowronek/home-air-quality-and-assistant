@@ -14,7 +14,7 @@ echo "If you prefer to do it manually then:"
 echo " - run: pip3 install -r requirements.txt"
 echo " - see ./init_model.sh for details"
 echo ""
-read -p "Do you want to continue the automatic precedure? (Y/N) " -n 1 -r
+read -p "Do you want to continue the automatic procedure? (Y/N) " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then

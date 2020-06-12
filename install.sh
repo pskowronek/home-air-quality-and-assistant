@@ -4,8 +4,8 @@
 # Does the following things:
 # - installs raspbian (debian/ubuntu etc) packages required for the whole project
 # - runs initialization and installation scripts for assistant (python modules and offline voice models)
-# - optionally (after user's concent) copies services to /etc/systemd/system/
-# - optionally (after user's concent) enables every each to start at boot time
+# - optionally (after user's consent) copies services to /etc/systemd/system/
+# - optionally (after user's consent) enables every each to start at boot time
 
 VISUALIZER_JAR="https://github.com/rjaros87/pm-home-station/releases/download/1.3.0-alpha/pm-home-station-1.3.0-alpha.jar"
 
@@ -30,10 +30,10 @@ echo "Going to update apt repository..."
 sudo apt update
 
 echo "Going to install required system libraries..."
-sudo apt install ar
 
 # required by assistant
-sudo apt install default-jre \
+sudo apt install ar \
+                 default-jre \
                  libpulse-dev \
                  portaudio19-dev \
                  python-pyaudio \
@@ -46,27 +46,27 @@ sudo apt install default-jre \
 
 echo "Finished with system libraries."
 
-echo "Going to download pm-home-station jar to use it as visualizer..."
+echo "Going to download pm-home-station jar to use it as the visualizer..."
 rm -rf build
 mkdir build
 cd build
 curl $VISUALIZER_JAR -L -O
 cd -
 
-echo "Going to install python libraries and initialize acoustic model for assistant..."
+echo "Going to install python libraries and initialize acoustic model for athe assistant..."
 assistant/install.sh
 
 echo
 if [[ $(pwd) != '/home/pi/home-air-quality-and-assistant' ]]
 then
-    echo "The directory where this script is is different than '/home/pi/home-air-quality-and-assistant'."
-    echo "If you want to use the current direct then you must first edit *.service files and update directory."
+    echo "The directory where this script is present is different than '/home/pi/home-air-quality-and-assistant'."
+    echo "If you want to use the current directory, then you must first edit *.service files and update the paths."
     echo
     read -p "Please confirm that *.service files have been updated and therefore you would like to continue. Do you confirm? (Y/N)  " -n 1 -r
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]
     then
-        echo "OK, please rerun this script when you update *.service files or move the project to /home/pi/home-air-quality-and-assistant"
+        echo "OK, please re-run this script when you updated *.service files or moved the project to /home/pi/home-air-quality-and-assistant"
         exit 0
     fi
 fi
