@@ -48,6 +48,7 @@ def main():
     pocketsphinx_config.set_string('-dict', os.path.join(os.getcwd(), config['dict_path']))
     pocketsphinx_config.set_string('-lm', os.path.join(os.getcwd(), config['lm_path']))
     pocketsphinx_config.set_string('-kws', os.path.join(os.getcwd(), config['keyphrase_path']))
+    pocketsphinx_config.set_boolean("-allphone_ci", True)
 
     # Initialize audio
     p = pyaudio.PyAudio()
@@ -193,7 +194,7 @@ def calc_similarity(command, sentence, hyp_str):
 
 def init_logging():
     logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
 
     handler = logging.StreamHandler(sys.stdout)
     logger.addHandler(handler)

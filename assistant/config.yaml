@@ -84,10 +84,12 @@ invocations:
           - name: fortune
             sentence:
               - Tell me fortune for today
+              - Tell me a joke
             must:
-              - fortune
             should:
               - today
+              - joke
+              - fortune
             must_not:
             exec: scripts/cmd_fortune.sh
           - name: uptime
@@ -187,10 +189,12 @@ invocations:
           - name: fortune
             sentence:
               - Tell me fortune for today
+              - Tell me a joke
             must:
-              - fortune
             should:
               - today
+              - joke
+              - fortune
             must_not:
             exec: scripts/cmd_fortune.sh
           - name: uptime
