@@ -61,7 +61,8 @@ Of course voice recognition isn't perfect - a lot depends on soundcard & mike qu
 
 ### Screenshots
 
-Some animated screenshots how it works when interacting with voice commands
+Some animated screenshots how it works when interacting with voice commands:
+
 ![Screenshots](https://github.com/pskowronek/home-air-quality-and-assistant/raw/master/www/screenshots/screenshots.gif)
 
 
@@ -81,7 +82,7 @@ More photos of how it was enclosed in a custom-built LEGO™ housing are [here](
 - [Waveshare 3.5" inch display for Raspberry Pi](https://botland.com.pl/en/displays-raspberry-pi/4479-touch-screen-a-resistive-lcd-35-320x480px-gpio-for-raspberry-pi-432bzero-waveshare-9904.html)
 - [Hub USB hat](https://botland.com.pl/en/raspberry-pi-hat-extenders-findings/8870-hub-usb-hat-4-port-hub-for-raspberry-pi-4b3b3bzero-waveshare-12694.html)
 - [Prototype board for RPi Zero](https://botland.com.pl/en/raspberry-pi-hat-extenders-findings/11714-breakout-pi-zero-prototype-board-for-raspberry-pi-zero-7426787870132.html)
-- GY-2561 I2C light sensor to control the brightness thru GPIO PWM output via optocoupler and NPN transistor (see [wiki](https://github.com/pskowronek/home-air-quality-and-assistant/wiki))
+- TSL2561 (GY-2561) I2C light sensor to control the brightness thru GPIO PWM output via optocoupler and NPN transistor (see [wiki](https://github.com/pskowronek/home-air-quality-and-assistant/wiki))
 - mini USB soundcard - try to find not the cheapest one, but rather a good quality one that has a good microphone signal (no noise etc)
 - a mini microphone of decent quality
 - a mini speaker (like MG15 0.1W 8ohm) plus amp [module](https://botland.com.pl/en/mp3-wav-oog-midi/6641-amplifier-audio-stereo-2x3w-5v-arduino-bascom-avr-green.html)

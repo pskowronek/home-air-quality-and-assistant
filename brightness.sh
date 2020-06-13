@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# This script controls brightness of LCD display - tested with Waveshare 3.5" LCD RPi hat that was
+# customized to support this feature via GPIO 12 PWM. The brightness is controlled by using I2C light sensor TSL2561,
+# however can be temporarily increased by sending HUP signal, it will automatically switch to automatic mode
+# after defined time-out, this can be also interrupted (cancelled) by sending CONT signal.
+#
+# Remark: apprently the HW setup (opt + NPN transistor) is too slow for GPIO PWM in pwm-bal mode, using pwm-ms instead.
+#
+# Visit: https://github.com/pskowronek/home-air-quality-and-assistant and its wiki for more details.
+# Apache 2 License.
+
 # CONFIGURATION
 
 # Tested with TSL2561
@@ -12,7 +22,7 @@ LCD_BRIGHTNESS_DEFAULT_VALUE="0"
 LCD_BRIGHTNESS_STEP=10
 # Time between lumi checks (format as for sleep command, see 'man sleep')
 LOOP_ITER_SLEEP="0.5s"
-# Trigger brightness change only if it changed by this value (in normalized range of 0-1023)
+# Trigger brightness change only if it changed at least by this value (in normalized range of 0-1023)
 LCD_BRIGHTNESS_TRESHOLD=5
 # The number of loop iterations the forced brightness should exist (120 * LOOP_ITER_SLEEP ~= 1m)
 FORCED_BRIGHTNESS_LOOP_COUNT=120

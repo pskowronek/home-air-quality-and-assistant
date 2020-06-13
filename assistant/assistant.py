@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 """
-An attempt to build continues voice recognition and commands execution
+An attempt to build continues voice recognition and commands execution.
+
+https://github.com/pskowronek/home-air-quality-and-assistant, Apache 2 License.
 
 Based on:
  - https://stackoverflow.com/questions/38090440/running-different-commands-with-different-words-in-pocketsphinx
@@ -11,7 +13,7 @@ Based on:
  - https://thenewstack.io/off-the-shelf-hacker-open-source-voice-recognition-without-a-net/
 API:
  - https://cmusphinx.github.io/doc/python/pocketsphinx.pocketsphinx.Decoder-class.html
-Calculating sentences similarity by using Levenshtein hinted by :
+Calculating sentences similarity by using Levenshtein hinted by:
  - https://towardsdatascience.com/calculating-string-similarity-in-python-276e18a7d33a
 """
 
@@ -31,7 +33,7 @@ import yaml
 
 
 def main():
-    """ A main method to that does simple matching of sentences and executes scripts
+    """ A main method to that does a simple matching of sentences and executes scripts
     """
 
     notifier = sdnotify.SystemdNotifier()
