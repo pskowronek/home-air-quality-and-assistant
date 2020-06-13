@@ -1,0 +1,10 @@
+autostart.measurements = true
+check.latest.version = false
+# A serial device where PM sensor can be observed (ttyS0 is a default one on RPi when connecting directly to its UART TX/RX):
+preferred.devices = ttyS0
+dark.mode = true
+window.theme = true
+# The interval between measurements (in seconds)
+interval = 30
+charts.mode.area = true
+charts.horizontal = true

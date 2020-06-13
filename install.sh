@@ -53,6 +53,11 @@ cd build
 curl $VISUALIZER_JAR -L -O
 cd -
 
+echo "Going to copy a defulat pm-home-station config (res/pmhomestationconfig) to ~/.pmhomestationconfig..."
+mv -f ~/.pmhomestationconfig ~/.pmhomestationconfig.BAK.$(date +%s) 2> /dev/null
+cp res/pmhomestationconfig ~/.pmhomestationconfig
+
+
 echo "Going to install python libraries and initialize acoustic model for athe assistant..."
 assistant/install.sh
 
