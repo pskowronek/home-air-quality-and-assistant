@@ -25,7 +25,6 @@ then
 fi
 
 
-
 echo "Going to update apt repository..."
 sudo apt update
 
@@ -38,6 +37,7 @@ sudo apt install ar \
                  portaudio19-dev \
                  python-pyaudio \
                  python3-pyaudio \
+                 swig \
                  wmctrl \
                  xdotool \
                  pv \

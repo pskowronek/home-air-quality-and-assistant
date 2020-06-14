@@ -1,12 +1,13 @@
 hmm_path: model/hmm
 dict_path: model/lmtool.dic
 lm_path: model/lmtool.lm
+invocation_path: invocation.list
 keyphrase_path: keyphrase.list
 init_exec: scripts/init.sh
 interaction_timeout: 30
 
 invocations:
-    bruce:
+    "bruce":
       enter: scripts/enter.sh
       ack: scripts/ack.sh
       noop: scripts/noop.sh
@@ -111,7 +112,7 @@ invocations:
             must_not:
               - not
             exec: scripts/cmd_reboot.sh
-    cybill:
+    "cybill":
       enter: scripts/enter.sh
       ack: scripts/ack.sh
       noop: scripts/noop.sh

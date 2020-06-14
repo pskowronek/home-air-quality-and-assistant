@@ -52,7 +52,10 @@ function show_terminal {
 }
 
 function hide_terminal {
-    ( xdotool search --maxdepth 2 --limit 1 --name $1 windowminimize; clear > ${!1} )&
+    ( xdotool windowminimize $(wmctrl -l | grep $1 | cut -d' ' -f1); clear > ${!1} )&
+# xdotool is very slow on RPi when it needs to search thru windows - combination of wmctrl and xdotool is ~6x quicker (200ms vs 1300ms)
+#    ( xdotool search --maxdepth 2 --limit 1 --name $1 windowminimize; clear > ${!1} )&
+
 }
 
 function hide_terminals {

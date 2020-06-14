@@ -33,14 +33,20 @@ then
     exit 0
 fi
 
-echo "Uploading keyphrase.list to www.speech.cs.cmu.edu..."
-URL=$(curl -F 'formtype=simple' -F 'corpus=@keyphrase.list' -s -L "$LM_TOOL" | grep -o 'a href="[^\"]*' | grep -Eo '(http|https)://[^\"]+')
+tmpDir=$(mktemp -d -t ci-XXXXXXXXXX)
+
+echo "Uploading invocation.list & keyphrase.list to www.speech.cs.cmu.edu..."
+tmpList=$(mktemp $tmpDir/allkeyphrase.XXXXXX.list) 
+cat invocation.list >> $tmpList
+echo "" >> $tmpList
+cat keyphrase.list >> $tmpList
+
+URL=$(curl -F 'formtype=simple' -F "corpus=@$tmpList" -s -L "$LM_TOOL" | grep -o 'a href="[^\"]*' | grep -Eo '(http|https)://[^\"]+')
 
 # ' <- to fix mcedit syntax highlighting
 
 echo "The generated model file is available here: $URL"
 
-tmpDir=$(mktemp -d -t ci-XXXXXXXXXX)
 tmpTgz=$(mktemp $tmpDir/assistant-model.XXXXXX.tgz)
 tmpDeb=$(mktemp $tmpDir/assistant-acoustic.XXXXXX.deb)
 tmpLmTool=$tmpDir/output

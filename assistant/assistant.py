@@ -48,8 +48,8 @@ def main():
     pocketsphinx_config = Decoder.default_config()
     pocketsphinx_config.set_string('-hmm', os.path.join(os.getcwd(), config['hmm_path']))
     pocketsphinx_config.set_string('-dict', os.path.join(os.getcwd(), config['dict_path']))
-    pocketsphinx_config.set_string('-lm', os.path.join(os.getcwd(), config['lm_path']))
-    pocketsphinx_config.set_string('-kws', os.path.join(os.getcwd(), config['keyphrase_path']))
+    #pocketsphinx_config.set_string('-lm', os.path.join(os.getcwd(), config['lm_path']))
+    #pocketsphinx_config.set_string('-kws', os.path.join(os.getcwd(), config['keyphrase_path']))
     pocketsphinx_config.set_boolean("-allphone_ci", True)
 
     # Initialize audio
@@ -63,6 +63,8 @@ def main():
     # Process audio chunk by chunk. On keyword detected perform action and restart search
     decoder = Decoder(pocketsphinx_config)
     logmath = decoder.get_logmath()
+    decoder.set_kws('keyword', os.path.join(os.getcwd(), config['invocation_path']))
+    decoder.set_lm_file('lm', os.path.join(os.getcwd(), config['lm_path']))
 
     invocation_ctx = None
     in_speech_bf = False
@@ -70,9 +72,10 @@ def main():
     # Run some initialization scripts for terminal displays
     subprocess.Popen([os.path.join(os.getcwd(), config['init_exec'])]).communicate()
 
+    decoder.set_search('keyword')
     decoder.start_utt()
     notifier.notify("READY=1")
-    
+
     interaction_time = None
 
     while True:
@@ -86,7 +89,7 @@ def main():
 
         hyp = decoder.hyp()
         # seg = decoder.seg()
-        hyp_str = hyp.hypstr.lower() if hyp else None
+        hyp_str = hyp.hypstr.lower().strip() if hyp else None
         now_in_speech = decoder.get_in_speech()
 
         if now_in_speech != in_speech_bf:
@@ -104,6 +107,7 @@ def main():
                             subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['enter']),
                                              invocations[invocation_ctx]['voice_params'], invocation_ctx, hyp_str]).communicate()
                             interaction_time = time.time()
+                            decoder.set_search('lm')
                         else:
                             logging.debug('Unknown invocation or wrongly heard, silently ignoring')
                     else:
@@ -132,6 +136,7 @@ def main():
                                 subprocess.Popen([os.path.join(os.getcwd(), invocations[invocation_ctx]['exit']),
                                                  invocations[invocation_ctx]['voice_params'], invocation_ctx, hyp_str])
                                 invocation_ctx = None
+                                decoder.set_search('keyword')
                                 matched = True
                             break  # take only the first which should be the best
 
@@ -148,6 +153,9 @@ def main():
                               invocations[invocation_ctx]['voice_params'], invocation_ctx])
             invocation_ctx = None
             interaction_time = None
+            decoder.end_utt()
+            decoder.set_search('keyword')
+            decoder.start_utt()
 
 
 def calc_similarity(command, sentence, hyp_str):
