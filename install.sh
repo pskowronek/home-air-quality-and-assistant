@@ -38,6 +38,7 @@ sudo apt install ar \
                  python-pyaudio \
                  python3-pyaudio \
                  swig \
+                 espeak \
                  wmctrl \
                  xdotool \
                  pv \

@@ -1,4 +1,5 @@
 hmm_path: model/hmm
+feat_params_path: model/hmm/feat.params
 dict_path: model/lmtool.dic
 lm_path: model/lmtool.lm
 invocation_path: invocation.list

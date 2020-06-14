@@ -48,9 +48,11 @@ def main():
     pocketsphinx_config = Decoder.default_config()
     pocketsphinx_config.set_string('-hmm', os.path.join(os.getcwd(), config['hmm_path']))
     pocketsphinx_config.set_string('-dict', os.path.join(os.getcwd(), config['dict_path']))
-    #pocketsphinx_config.set_string('-lm', os.path.join(os.getcwd(), config['lm_path']))
-    #pocketsphinx_config.set_string('-kws', os.path.join(os.getcwd(), config['keyphrase_path']))
+    pocketsphinx_config.set_string('-featparams', os.path.join(os.getcwd(), config['feat_params_path']))
     pocketsphinx_config.set_boolean("-allphone_ci", True)
+    # Using decoder.set_kws & decoder.set_lm_file
+    # pocketsphinx_config.set_string('-lm', os.path.join(os.getcwd(), config['lm_path']))
+    # pocketsphinx_config.set_string('-kws', os.path.join(os.getcwd(), config['keyphrase_path']))
 
     # Initialize audio
     p = pyaudio.PyAudio()
