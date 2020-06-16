@@ -8,7 +8,7 @@ init_exec: scripts/init.sh
 interaction_timeout: 30
 
 invocations:
-    "bruce":
+    "hey bruce":
       enter: scripts/enter.sh
       ack: scripts/ack.sh
       noop: scripts/noop.sh
@@ -20,9 +20,9 @@ invocations:
               - Whats the weather like
               - What is the weather like
               - What the weather like
-              - Whats the weather today
-              - What is the weather today
-              - What the weather today
+              - Whats the weather like today
+              - What is the weather like today
+              - What the weather like today
             must:
               - weather
             should:
@@ -85,7 +85,7 @@ invocations:
             exec: scripts/cmd_stocks.sh
           - name: fortune
             sentence:
-              - Tell me fortune for today
+              - Tell me a fortune
               - Tell me a joke
             must:
             should:
@@ -113,7 +113,7 @@ invocations:
             must_not:
               - not
             exec: scripts/cmd_reboot.sh
-    "cybill":
+    "hey cybill":
       enter: scripts/enter.sh
       ack: scripts/ack.sh
       noop: scripts/noop.sh
@@ -125,9 +125,9 @@ invocations:
               - Whats the weather like
               - What is the weather like
               - What the weather like
-              - Whats the weather today
-              - What is the weather today
-              - What the weather today
+              - Whats the weather like today
+              - What is the weather like today
+              - What the weather like today
             must:
               - weather
             should:
@@ -190,7 +190,7 @@ invocations:
             exec: scripts/cmd_stocks.sh
           - name: fortune
             sentence:
-              - Tell me fortune for today
+              - Tell me s fortune
               - Tell me a joke
             must:
             should:

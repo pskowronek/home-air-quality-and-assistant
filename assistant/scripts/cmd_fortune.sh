@@ -14,4 +14,4 @@ source ./_helpers.sh
 
 brighten_display &
 
-(show_terminal "TERM_8"; /usr/games/fortune -s | tee >(espeak $1) > $TERM_8; sleep 15s; hide_terminal "TERM_8")
+(show_terminal "TERM_8"; /usr/games/fortune -o -s | tee >(espeak $1) > $TERM_8; sleep 15s; hide_terminal "TERM_8")

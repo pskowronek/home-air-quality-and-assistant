@@ -22,7 +22,7 @@ BTW, it was a quite nice journey through electronics & soldering, bash scripting
 ## Visualizer
 
 To visualize the sensor's air quality readings I used this project that I'm also a co-author: [pm-home-station](https://github.com/rjaros87/pm-home-station/).
-It uses alpha build that supports small screen screens, Kiosk mode and PMS5003ST sensor that is able to measure formaldehyde concentration, humidity and temperature on top of pm2.5 and pm10 particles.
+It uses alpha build that supports small displays, Kiosk mode and PMS5003ST sensor that is able to measure formaldehyde concentration, humidity and temperature on top of pm2.5 and pm10 particles.
 
 The visualizer displays:
 - PM 1.0/2.5/10 readings + charts (PMS7003 and PMS5003ST)
@@ -31,7 +31,7 @@ The visualizer displays:
 ## Brightness
 
 To control Waveshare 3.5" display brightness I wrote a simple script to constantly adjust the brightness based on light sensor readings. The only trouble was that this LCD display does not support this
-functionality OOB :) See [project's wiki](https://github.com/pskowronek/home-air-quality-and-assistant/wiki) how I hacked my way to add this functionality.
+functionality OOB :) See [project's wiki](https://github.com/pskowronek/home-air-quality-and-assistant/wiki/Waveshare-3.5"-LCD-hack-for-backlight-control) how I hacked my way to add this functionality.
 
 ## Assistant
 
@@ -45,18 +45,18 @@ Currently the assistant can be used to do the following things:
   - initiate reboot
 
 The assistant itself can be easily reconfigured to understand additional commands - one must edit [config.yaml](https://github.com/pskowronek/home-air-quality-and-assistant/blob/master/assistant/config.yaml) and specialized [bash scripts](https://github.com/pskowronek/home-air-quality-and-assistant/tree/master/assistant/scripts) can be written to execute those commands.
-A default configuration tries to react for two invocation words: [Cybill](https://en.wikipedia.org/wiki/Cybill_Shepherd) and [Bruce](https://en.wikipedia.org/wiki/Bruce_Willis) (we've got their posters on the wall behind, hence the idea for invocation words). This can also be easily reconfigured.
+A default configuration tries to react for two invocation sentences: Hey [Cybill](https://en.wikipedia.org/wiki/Cybill_Shepherd) and Hey [Bruce](https://en.wikipedia.org/wiki/Bruce_Willis) (we've got their posters on the wall behind, hence the idea for invocation words). This can also be easily reconfigured.
 Each of the invocation words can have their voice adjusted, for example Cybill answers with a female voice, whereas Bruce with a male voice.
 
 Some sample commands that are available out of the box:
-  - Bruce (...wait for ack sound...) what is the weather like?
-  - Cybill (...) what is the weather tomorrow?
-  - Bruce (...) how is the Moon today?
-  - Cybill (...) show my stocks
-  - Bruce (...) show me calendar
-  - Cybill (...) tell me a joke
-  - Bruce (...) show me uptime
-  - Cybill (...) reboot now
+  - Hey Bruce (...wait for ack sound...) what is the weather like?
+  - Hey Cybill (...) what is the weather tomorrow?
+  - Hey Bruce (...) how is the Moon today?
+  - Hey Cybill (...) show my stocks
+  - Hey Bruce (...) show me calendar
+  - Hey Cybill (...) tell me a joke
+  - Hey Bruce (...) show me uptime
+  - Hey Cybill (...) reboot now
 
 Of course voice recognition isn't perfect - a lot depends on soundcard & mike quality. Also, there are a lot of false positives for the invocation words (it wakes up while somebody is talking) - WiP :)
 

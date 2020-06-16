@@ -42,7 +42,8 @@ sudo apt install ar \
                  wmctrl \
                  xdotool \
                  pv \
-                 fortune \
+                 fortunes \
+                 fortunes-off \
                  xterm
 
 echo "Finished with system libraries."
