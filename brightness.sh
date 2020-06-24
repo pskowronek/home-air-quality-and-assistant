@@ -5,7 +5,7 @@
 # however can be temporarily increased by sending HUP signal, it will automatically switch to automatic mode
 # after defined time-out, this can be also interrupted (cancelled) by sending CONT signal.
 #
-# Remark: apprently the HW setup (opt + NPN transistor) is too slow for GPIO PWM in pwm-bal mode, using pwm-ms instead.
+# Remark: apparently the HW setup (opt + NPN transistor) is too slow for GPIO PWM in pwm-bal mode, using pwm-ms instead.
 #
 # Visit: https://github.com/pskowronek/home-air-quality-and-assistant and its wiki for more details.
 # Apache 2 License.

@@ -15,5 +15,5 @@ source ./_helpers.sh
 brighten_display &
 
 # Using stonks.icu (https://github.com/ericm/stonks)
-(show_terminal "TERM_8"; curl -m 10 stonks.icu/pega > $TERM_8; sleep 15s; hide_terminal "TERM_8")
+(show_terminal "TERM_6"; curl -m 10 stonks.icu/pega > $TERM_6; sleep 15s; hide_terminal "TERM_6")
 

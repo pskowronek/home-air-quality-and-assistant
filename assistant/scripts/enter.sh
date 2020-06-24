@@ -12,6 +12,6 @@ export TERM=xterm
 source ./_helpers.sh
 
 brighten_display &
-(show_terminal "TERM_25"; echo -e 'What can I do\nfor you, my lord?' > $TERM_25; sleep 5s) &
+(show_terminal "TERM_25"; echo -e 'What can I do\nfor you?' > $TERM_25; sleep 5s) &
 
 aplay res/enter.wav
