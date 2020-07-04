@@ -7,11 +7,11 @@ _Language versions:_\
 
 # Home Air Quality plus Voice Assistant
 
-This is project is a result of Covid-19 lockdown :) Some references you can find on top of the final assembly (like the police hunting people going outside :>).
+This project is a result of Covid-19 lockdown :) Some references you can find on top of the final assembly (like the police hunting people going outside :>).
 Basically, the project is to display in-door air quality metrics plus to give you a possibility to interact with the device using voice, akin to Alexa or Google Home - but offline :)
 
 I'm not saying that it is any better than Alexa or Google Home - it isn't, but it is DIY :) The language model is very simple, the CPU of Raspberry Pi Zero ain't a king - it does what it
-can to undestand the voice. The most important factor is a quality of USB soundcard and microphone.
+can to understand the voice. The most important factor is a quality of USB soundcard and microphone.
 
 So, to recap - I've started with a simple monitoring tool to display indoor air quality using PMS5003ST or PMS7003 sensors and Raspberry Pi Zero with Waveshare 3.5inch display... then things started to evolve :)
 
