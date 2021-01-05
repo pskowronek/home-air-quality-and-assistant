@@ -8,3 +8,6 @@ window.theme = true
 interval = 30
 charts.mode.area = true
 charts.horizontal = true
+csv.log = true                                                                                                                                                                  
+csv.log.file = /tmp/pm-home-station.csv                                                                                                                                         
+csv.log.enabled = true 

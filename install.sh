@@ -7,6 +7,7 @@
 # - optionally (after user's consent) copies services to /etc/systemd/system/
 # - optionally (after user's consent) enables every each to start at boot time
 
+
 VISUALIZER_JAR="https://github.com/rjaros87/pm-home-station/releases/download/1.3.0-alpha/pm-home-station-1.3.0-alpha.jar"
 
 cd "$(dirname "$0")"
@@ -55,7 +56,7 @@ cd build
 curl $VISUALIZER_JAR -L -O
 cd -
 
-echo "Going to copy a defulat pm-home-station config (res/pmhomestationconfig) to ~/.pmhomestationconfig..."
+echo "Going to copy a default pm-home-station config (res/pmhomestationconfig) to ~/.pmhomestationconfig..."
 mv -f ~/.pmhomestationconfig ~/.pmhomestationconfig.BAK.$(date +%s) 2> /dev/null
 cp res/pmhomestationconfig ~/.pmhomestationconfig
 
@@ -106,6 +107,11 @@ then
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         sudo systemctl enable assistant.service
+        read -p "Do you want to enable InfluxDB reporting to start on boot? (Y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            sudo systemctl enable influxdb-reporting.service
+        fi
     fi
-
 fi

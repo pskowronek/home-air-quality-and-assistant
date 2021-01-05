@@ -1,0 +1,26 @@
+[Unit]
+Description=influxdb-reporting-service-of-home-air-quality-service
+After=graphical.target
+After=network.target
+# Hopefully it should be enforced: https://github.com/systemd/systemd/issues/5097
+Wants=time-sync.target
+
+[Service]
+ExecStart=/home/pi/home-air-quality-and-assistant/influxdb-reporting.sh
+WorkingDirectory=/home/pi/home-air-quality-and-assistant
+StandardOutput=journal
+StandardError=journal
+User=pi
+
+StartLimitInterval=5min
+StartLimitBurst=5
+
+# disabled for now since notifications for watchdog is not supported yet
+Restart=always
+#RestartSec=10s
+#TimeoutSec=infinity
+#TimeoutStartSec=60s
+#TimeoutStopSec=20s
+
+[Install]
+WantedBy=graphical.target
