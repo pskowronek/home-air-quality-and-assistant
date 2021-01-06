@@ -10,7 +10,7 @@ INFLUXDB_ROW = "readings"
 
 NODE_NAME = "saloon"
 
-echo "Going to peridically trace /tmp/pm-home-station.csv to log data to InfluxDB..."
+echo "Going to periodically trace /tmp/pm-home-station.csv to log data to InfluxDB..."
 while true
 do
     sleep 15m
