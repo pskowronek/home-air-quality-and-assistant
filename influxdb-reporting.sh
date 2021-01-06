@@ -14,9 +14,9 @@ echo "Going to periodically trace /tmp/pm-home-station.csv to log data to Influx
 while true
 do
     sleep 15m
-    exists=$(ls /tmp/pm-home-station.csv)
+    check=$(ls /tmp/pm-home-station.csv)
     retVal=$?
-    if [$retVal -eq 0]; then
+    if [ $retVal -eq 0 ]; then
         echo "Got some latest readings!"
         tail -1 /tmp/pm-home-station.csv |
           while IFS=, read -r datetime pm1 pm25 pm10 hcho humi temp
