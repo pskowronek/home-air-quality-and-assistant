@@ -21,8 +21,8 @@ do
         tail -1 /tmp/pm-home-station.csv |
           while IFS=, read -r datetime pm1 pm25 pm10 hcho humi temp
           do
+            echo "Going to send data to InfluxDB under $INFLUXDB_ADDR..."
             curl -i -XPOST "http://$INFLUXDB_ADDR/write?db=$INFLUXDB_NAME&u=$INFLUXDB_USER&p=$INFLUXDB_PASSWD" --data-binary "$INFLUXDB_ROW,node=$NODE_NAME pm1=$pm1,pm25=$pm25,pm10=$pm10,hcho=$hcho,humidity=$humi,temp=$temp"
-            echo "Data sent to influxdb? $? - if not zero then check logs :)"
           done
     fi
 done
