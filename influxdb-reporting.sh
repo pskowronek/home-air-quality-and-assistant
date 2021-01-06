@@ -2,13 +2,13 @@
 
 # This script is going to periodically send measurements to InfluxDB.
 
-INFLUXDB_ADDR = "192.168.1.40:8086"
-INFLUXDB_USER = "user"
-INFLUXDB_PASSWD = "changeme"
-INFLUXDB_NAME = "sensors"
-INFLUXDB_ROW = "readings"
+INFLUXDB_ADDR="192.168.1.40:8086"
+INFLUXDB_USER="user"
+INFLUXDB_PASSWD="changeme"
+INFLUXDB_NAME="sensors"
+INFLUXDB_ROW="readings"
 
-NODE_NAME = "saloon"
+NODE_NAME="saloon"
 
 echo "Going to periodically trace /tmp/pm-home-station.csv to log data to InfluxDB..."
 while true
