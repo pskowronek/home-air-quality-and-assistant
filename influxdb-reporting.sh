@@ -22,7 +22,7 @@ do
           while IFS=, read -r datetime pm1 pm25 pm10 hcho humi temp
           do
             echo "Going to send data to InfluxDB under $INFLUXDB_ADDR..."
-            curl -i -XPOST "http://$INFLUXDB_ADDR/write?db=$INFLUXDB_NAME&u=$INFLUXDB_USER&p=$INFLUXDB_PASSWD" --data-binary "$INFLUXDB_ROW,node=$NODE_NAME pm1=$pm1,pm25=$pm25,pm10=$pm10,hcho=$hcho,humidity=$humi,temp=$temp"
+            curl -i -XPOST "http://$INFLUXDB_ADDR/write?db=$INFLUXDB_NAME&u=$INFLUXDB_USER&p=$INFLUXDB_PASSWD" --data-binary "$INFLUXDB_ROW,name=$NODE_NAME pm1=$pm1,pm25=$pm25,pm10=$pm10,hcho=$hcho,humidity=$humi,temp=$temp"
           done
     fi
 done
