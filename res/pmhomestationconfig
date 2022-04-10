@@ -1,7 +1,10 @@
 autostart.measurements = true
 check.latest.version = false
-# A serial device where PM sensor can be observed (ttyS0 is a default one on RPi when connecting directly to its UART TX/RX):
+# A serial device where PM sensor can be observed (ttyS0 is a default one on RPi when connecting directly to its UART TX/RX,                          
+# however, ttyAMA0 is made default when pi3-disable-bt is set in /boot/config.txt - https://github.com/raspberrypi/linux/issues/2932#issuecomment-482126193):
 preferred.devices = ttyS0
+preferred.devices = ttyAMA0
+
 dark.mode = true
 window.theme = true
 # The interval between measurements (in seconds)
