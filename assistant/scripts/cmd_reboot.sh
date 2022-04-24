@@ -13,5 +13,5 @@ source ./_helpers.sh
 
 brighten_display &
 
-(show_terminal "TERM_17"; echo -e "System is going down\nFor reboot now!\n"; sleep 5s; echo -e "\n\nGoing down!\n"; sudo reboot now;  > $TERM_17; sleep 15s; hide_terminal "TERM_17")
+(show_terminal "TERM_17"; echo -e "System is going down\nFor reboot now!\n" > $TERM_17; sleep 5s; echo -e "\n\nGoing down!\n" > $TERM_17; sudo reboot now; sleep 15s; hide_terminal "TERM_17")
 
