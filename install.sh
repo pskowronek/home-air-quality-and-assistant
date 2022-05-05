@@ -32,20 +32,17 @@ sudo apt update
 echo "Going to install required system libraries..."
 
 # required by assistant
-sudo apt install ar \
-                 default-jre \
+sudo apt install openjdk-8-jre-headless openjdk-8-jre \
+                 xterm \
                  libpulse-dev \
                  portaudio19-dev \
-                 python-pyaudio \
                  python3-pyaudio \
-                 swig \
                  espeak \
                  wmctrl \
                  xdotool \
                  pv \
                  fortunes \
-                 fortunes-off \
-                 xterm
+                 fortunes-off
 
 echo "Finished with system libraries."
 
