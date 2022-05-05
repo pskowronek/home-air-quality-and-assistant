@@ -40,7 +40,7 @@ def main():
 
     # Load config first
     config_file = open(os.path.join(os.getcwd(), 'config.yaml'), 'r')
-    config = yaml.load(config_file)
+    config = yaml.safe_load(config_file)
 
     interaction_timeout = int(config['interaction_timeout'])
 

@@ -2,3 +2,4 @@ python-Levenshtein == 0.12.0
 pocketsphinx == 0.1.15
 PyAudio == 0.2.11
 sdnotify == 0.3.2
+PyYAML == 6.0
