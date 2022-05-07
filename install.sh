@@ -46,6 +46,10 @@ sudo apt install openjdk-8-jre-headless openjdk-8-jre \
 
 echo "Finished with system libraries."
 
+echo "Since gpio is not present in Bullseye no more, going to install gpio from github sources..."
+(cd /tmp && git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && ./build)
+echo "Finished with gpio."
+
 echo "Going to download pm-home-station jar to use it as the visualizer..."
 rm -rf build
 mkdir build
