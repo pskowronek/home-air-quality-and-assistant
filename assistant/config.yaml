@@ -113,7 +113,8 @@ invocations:
             must_not:
               - not
             exec: scripts/cmd_reboot.sh
-    "hey cybill":
+# Using 'seebill' instead of 'cybill' otherwise it is hard to pronounce it correctly enough so the model could catch it
+    "hey seebill":
       enter: scripts/enter.sh
       ack: scripts/ack.sh
       noop: scripts/noop.sh
