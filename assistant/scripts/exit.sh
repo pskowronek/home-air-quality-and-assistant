@@ -11,7 +11,7 @@ export TERM=xterm
 source ./_helpers.sh
 
 brighten_display &
-(show_terminal "TERM_25"; echo 'Bye!' > $TERM_25; sleep 3s; hide_terminals) &
+(clear_terminals; show_terminal "TERM_25"; echo 'Bye!' > $TERM_25; sleep 3s; hide_terminals) &
 
 aplay res/exit.wav
 brightness_normal &

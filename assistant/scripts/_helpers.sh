@@ -50,6 +50,13 @@ function init_terminals {
     fi
 }
 
+function clear_terminals {
+    clear > $TERM_6
+    clear > $TERM_8
+    clear > $TERM_17
+    clear > $TERM_25
+}
+
 function show_terminal {
     init_terminals
     clear > ${!1}
