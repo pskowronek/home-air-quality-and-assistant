@@ -1,0 +1,14 @@
+language: python
+dist: jammy
+
+python:
+  - "3.9"
+
+before_install: cd assistant
+
+install:
+  - pip install -r requirements.txt
+  - pip install flake8
+
+script:
+  - make check
