@@ -5,7 +5,7 @@ _Language versions:_\
 [![FR](https://github.com/pskowronek/home-air-quality-and-assistant/raw/master/www/flags/lang-FR.png)](https://translate.googleusercontent.com/translate_c?sl=en&tl=fr&u=https://github.com/pskowronek/home-air-quality-and-assistant)
 [![ES](https://github.com/pskowronek/home-air-quality-and-assistant/raw/master/www/flags/lang-ES.png)](https://translate.googleusercontent.com/translate_c?sl=en&tl=es&u=https://github.com/pskowronek/home-air-quality-and-assistant)
 
-# Home Air Quality plus Voice Assistant [![Build Status](https://travis-ci.com/pskowronek/home-air-quality-and-assistant.svg?branch=master)](https://app.travis-ci.com/github/pskowronek/home-air-quality-and-assistant)
+# Home Air Quality plus Voice Assistant [![Build Status](https://app.travis-ci.com/pskowronek/home-air-quality-and-assistant.svg?token=Qdxpgtv2JGtmt3c6QSYt&branch=master)](https://app.travis-ci.com/pskowronek/home-air-quality-and-assistant)
 
 This project is a result of Covid-19 lockdown :) Some references you can find on top of the final assembly (like the police hunting people going outside :>).
 Basically, the project is to display in-door air quality metrics plus to give you a possibility to interact with the device using voice, akin to Alexa or Google Home - but offline :)
