@@ -7,6 +7,8 @@ _Language versions:_\
 
 # Home Air Quality plus Voice Assistant [![Build Status](https://app.travis-ci.com/pskowronek/home-air-quality-and-assistant.svg?token=Qdxpgtv2JGtmt3c6QSYt&branch=master)](https://app.travis-ci.com/pskowronek/home-air-quality-and-assistant)
 
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png)](https://www.buymeacoffee.com/piosko)
+
 This project is a result of Covid-19 lockdown :) Some references you can find on top of the final assembly (like the police hunting people going outside :>).
 Basically, the project is to display in-door air quality metrics plus to give you a possibility to interact with the device using voice, akin to Alexa or Google Home - but offline :)
 
