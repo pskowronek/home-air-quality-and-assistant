@@ -1,10 +1,3 @@
-_Language versions:_\
-[![EN](https://github.com/pskowronek/home-air-quality-and-assistant/raw/master/www/flags/lang-US.png)](https://github.com/pskowronek/home-air-quality-and-assistant) 
-[![PL](https://github.com/pskowronek/home-air-quality-and-assistant/raw/master/www/flags/lang-PL.png)](https://translate.googleusercontent.com/translate_c?sl=en&tl=pl&u=https://github.com/pskowronek/home-air-quality-and-assistant)
-[![DE](https://github.com/pskowronek/home-air-quality-and-assistant/raw/master/www/flags/lang-DE.png)](https://translate.googleusercontent.com/translate_c?sl=en&tl=de&u=https://github.com/pskowronek/home-air-quality-and-assistant)
-[![FR](https://github.com/pskowronek/home-air-quality-and-assistant/raw/master/www/flags/lang-FR.png)](https://translate.googleusercontent.com/translate_c?sl=en&tl=fr&u=https://github.com/pskowronek/home-air-quality-and-assistant)
-[![ES](https://github.com/pskowronek/home-air-quality-and-assistant/raw/master/www/flags/lang-ES.png)](https://translate.googleusercontent.com/translate_c?sl=en&tl=es&u=https://github.com/pskowronek/home-air-quality-and-assistant)
-
 # Home Air Quality plus Voice Assistant [![Build Status](https://app.travis-ci.com/pskowronek/home-air-quality-and-assistant.svg?token=Qdxpgtv2JGtmt3c6QSYt&branch=master)](https://app.travis-ci.com/pskowronek/home-air-quality-and-assistant)
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png)](https://www.buymeacoffee.com/piosko)
