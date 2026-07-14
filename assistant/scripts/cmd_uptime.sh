@@ -13,7 +13,5 @@ source ./_helpers.sh
 
 brighten_display &
 
-# Using wttr.in to display ASCII weather.
-# wttr.in is a cool thing! Check it out here https://github.com/chubin/wttr.in, more options can be seen this way: curl http://wttr.in/:help
 (show_terminal "TERM_17"; uptime > $TERM_17; sleep 15s; hide_terminal "TERM_17")
 

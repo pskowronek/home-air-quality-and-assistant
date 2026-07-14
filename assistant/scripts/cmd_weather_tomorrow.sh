@@ -15,5 +15,8 @@ brighten_display &
 
 # Using wttr.in to display ASCII weather.
 # wttr.in is a cool thing! Check it out here https://github.com/chubin/wttr.in, more options can be seen this way: curl http://wttr.in/:help
-(show_terminal "TERM_8"; curl -L -m 3 wttr.in/?Ftnqp1 > $TERM_8; sleep 15s; hide_terminal "TERM_8")
+(show_terminal "TERM_8"; curl -L -m 3 wttr.in/Kraków?Fnqp1 > $TERM_8; sleep 15s; hide_terminal "TERM_8")
+
+# or simply use this one for getting weather forecast based on IP geolocation
+#(show_terminal "TERM_8"; curl -L -m 3 wttr.in/?Fnqp1 > $TERM_8; sleep 15s; hide_terminal "TERM_8")
 
